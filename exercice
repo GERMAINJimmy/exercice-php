@@ -1,0 +1,288 @@
+<?php
+
+
+// Exercice : vous affichez Bleu-Blanc-Rouge en mettant le texte de chaque couleur dans des variables.
+$bleu = 'bleu';
+$blanc = 'blanc';
+$rouge = 'rouge';
+echo $bleu . '-'. $blanc . '-'. $rouge. '<br>';
+//ou
+echo "$bleu-$blanc-$rouge <br>";
+
+$bleu = 'bleu';
+$bleu .= '-blanc';
+$bleu .= '-rouge';
+echo $bleu.'<br>';
+
+
+//Exercice : réecrivez ce switch avec des conditions if classique, pour obtenir exactement le meme resultat
+
+if($langue == 'français'){
+    echo 'Bonjour !';
+}elseif($langue == 'anglais'){
+    echo 'Hello !';
+}elseif($langue == 'espagnol'){
+    echo 'Hola !';
+}else{
+    echo 'Hello !<br>';
+}
+
+// Exercice 1:
+
+function meteo($saison){
+    echo"Nous sommes en $saison <br>";
+}
+
+meteo('hiver');
+meteo('été');
+meteo('automne');
+meteo('printemps');
+
+//Exercice 2:
+
+//ecrivez la fonction factureEssence()qui calcul le cout totale de votre facture en fonction du nombre de litre d'essence que vous lui donnez quand vous appeler la fonction.
+//cette fonction retourne la phrase votre facture est de ... €.
+// pour cela on vous donne une autre fonction prixLitre() qui vous indique le prix du litre, vous l'utilisez donc pour calculer le prix totale de la facture
+function prixLitre(){
+    return rand(100,200)/100; // chiffre aléatoire entre 1.00 et 2.00
+}
+function factureEssence($litre){
+    $totale = $litre * prixLitre();
+    return "Votre facture est de $totale € <br>";
+}
+
+echo factureEssence(30);
+
+// Exercice :
+// à l'aide d'une boucle while, afficher les années de 1919 à 2019 dasn un menu déroulant "select" "option".
+//---------------------------------------------------------
+$i = 1919;
+echo '<select>';
+while($i <= 2019){
+    echo "<option value=\"$i\">$i</option>";
+    $i++;
+}
+echo'</select> <br>';
+//---------------------------------------------------------
+$i = 2019;
+echo '<select>';
+while($i >= 1919){
+    echo "<option value=\"$i\">$i</option>";
+    $i--;
+}
+echo'</select> <br>';
+//---------------------------------------------------------
+
+//Exercice 1: 
+// Affiche les mois 1 à 12 dans un selecteur à l'aide d'une boucle for
+//---------------------------------------------------------
+echo '<select>';
+for($i = 1; $i <= 12; $i++){
+    echo "<option value=\"$i\">$i</option>";
+}
+echo'</select> <br>';
+//---------------------------------------------------------
+echo '<select>';
+for($i = 12; $i >= 1; $i--){
+    echo "<option value=\"$i\">$i</option>";
+}
+echo'</select> <br>';
+//---------------------------------------------------------
+
+//Exercice 2: 
+//1. Affiche 0 à 9 sur la meme ligne.
+for($i = 0;$i <= 9;$i++){
+    echo $i;
+}
+echo'<br>';
+
+//2. affiche 0 a 9 dans une <table> HTML
+echo '<table style="border-collapse: collapse;"><tr>';
+for($i = 0;$i <= 9;$i++){
+    echo "<td style='border : 1px solid steelblue;'>$i</td>";
+}
+echo '</tr></table><br>';
+
+// Exercice :
+// écrivez un array associatif avec les indices prenom, nom, email et téléphone, et vous y mettez les valeurs pour un seul membre. Puis avec une foreach vous afficher les valeurs dans des paragraphes séparer sauf pour le prenom que l'on souhaite dans un <h3>.
+
+$cordonnees = array('prenom' => 'Stitch', 'nom' => 'PELUCHE', 'email' => 'stitch.Peluche@gmail.com', 'telephone' => '00.00.00.00.00');
+foreach($cordonnees as $indice => $valeur){
+    if($indice == 'prenom'){
+        echo '<h3>Bonjour ' . $valeur . '!</h3>';
+    }else{
+            echo '<p>' . $valeur . '</p>';
+    }
+}
+
+
+// Exercice :
+// vous declarer un tableau avec les tailles S, M, L, XL. Et vous affichez les tailles dans un menu déroulant à l'aide d'une boucle foreach.
+
+$taille = array ('S','M','L','XL');
+echo '<select>';
+foreach($taille as $valeur){
+    echo '<option>' . $valeur . '</option><br>';
+}
+echo '</select>';
+
+
+<?php
+// EXERCICES : 
+
+/*
+1. Afficher dans cette page un titre : mon compte, un nom et un prenom. Vous faite du HTML complet avec DOCTYPE.
+2. Vous y ajoutez un lien "modifier mon profil" et un lien "supprimer mon profil". ces lien passe dans l'URL a cette meme page que l'action demandée est "modification" pour l'une et "suppression" pour l'autre
+3. Si la modification est demandée, c'est-à-dire que vous avez reçu cette info en GET, vous afficher donc "vous avez demandé la modification de votre compte", et si la suppression est demandée, vous affichez " vous avez demandé la suppression de votre compte".
+
+*/
+?>
+<?php 
+    $message = '';
+    if(isset($_GET['update'])){
+       $message = 'vous avez demandé la modification de votre compte';
+    };
+    if(isset($_GET['delete'])){
+        $message = 'vous avez demandé la suppression de votre compte';
+    };
+//    }
+?>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Mon Compte</h1>
+    <?php echo $message; ?>
+    <h1>Prénom : Stitch</h1>
+    <h1>Nom : Peluche</h1>
+    <p><a href="?update=modification">modifier mon profil</a></p>
+    <p><a href="?delete=suppression">supprimer mon profil</a></p>
+</body>
+
+</html>
+
+
+<?php 
+// Exercice : 
+// 1. Aficher 3 liens : banane, cerise, kiwi. ces liens passe dans l'URL le fruit choisi
+// 2. Quand on clique sur un lien on affiche "le prix des... = (fruit en question) est de .... euros"
+var_dump($_GET);
+$prix = array(
+            'banane'=>3,
+            'cerise'=> 5,
+            'kiwi'=> 8);
+
+if(isset($_GET['fruit']) && isset($prix[$_GET['fruit']]))
+{
+    echo"le prix des " . $_GET['fruit'] . " est de " . $prix[$_GET['fruit']] . "euros";
+}
+
+?>
+
+
+
+
+
+
+<a href="?fruit=banane">bananes</a>
+<a href="?fruit=cerise">cerises</a>
+<a href="?fruit=kiwi">kiwis</a>
+
+
+<?php
+// Exercice :
+/*
+1- Créér un formulaire dans cette page avec les champs ville, code postale, et une zone de texte adresse.
+2- Puis afficher les données daidies par l'internaute dans la page formulaire2_traitement en précisant les étiquettes.
+
+*/
+?>
+<form method="post" action="formulaire2_traitement.php">
+    <label for="adresse">Adresse</label>
+    <textarea name="adresse" id="adresse"></textarea><br /><br />
+
+    <label for="code_postal">Code Postal</label>
+    <input type="text" name="code_postal" id="code_postal" /><br /><br />
+
+    <label for="ville">Ville</label>
+    <input type="text" name="ville" id="ville" /><br /><br />
+
+    <input type="submit" value="Envoyer" name="" />
+</form>
+
+
+<?php
+var_dump($_POST);
+if(!empty($_POST)){
+    echo 'Adresse : ' . $_POST['adresse'] . '<br>';
+    echo 'Code postal : ' . $_POST['code_postal'] . '<br>';
+    echo 'Ville : ' . $_POST['ville'] . '<br>';   
+    
+    //--------------------------
+    // Ecrire un fichier texte 
+    //--------------------------
+    
+    // On souhaite écrire dans un fichier txt creer dynamiquement sur le serveur (en l'abscence de base de données).
+    
+    $file = fopen('adresse.txt', 'a'); // fopen en mode "a" permet de creer le fichier s'il n'existe pas sinon de l'ouvrir.
+    $adresse = $_POST['adresse'] . '-' . $_POST['code_postal'] . '-' . $_POST['ville'] . "\r\n"; // variable qui contient l'adresse à écrire dans le fichier txt. "\n" entre GUILLEMETS permet de passer à la ligne dans un fichier txt.
+    
+    fwrite($file, $adresse); // on écrit dans le fichier representer par $file l'adresse contenu dans $adresse.
+    
+    fclose($file); // on ferme le fichier pour gains de ressource (pas obligatoire).
+    
+    
+    
+}
+?>
+
+<?php
+
+// Exercice : 
+
+// stocker dans un cookie la langue choisie par l'internaute lors d'une première visite.
+var_dump($_GET);
+// on determine la langue a afficher
+if(isset($_GET['langue'])){ // si "langue" est passée dans l'URL, c'est que nous avons cliqué sur un lien
+    $langue = $_GET['langue'];
+}elseif(isset($_COOKIE['langue'])){ // si on a reçu un cookie appeler "langue" alors on affiche le site dans la langue contenu dans ce cookie
+    $langue = $_GET['langue'];
+}else{ 
+    $langue = 'fr';
+}
+// Envoi du cookie
+echo time(); // retourne le timestamp de maintenant, c-à-d le nombre de seconde écoulées depuis le 01/01/1970.
+$un_an = time()+ 365*24*60*60; // correspond timestemp de maintenant plus 1 ans exprimé en secondes
+setcookie('langue', $langue, $un_an); // envoi un cookie dans le navigateur de l'internaute avec dans l'ordre son nom, sa valeur, sa date dexpiration exprimé en timestamp.
+
+
+// Il n'éxiste pas de fonction prédéfinie permettant de supprimer un cookie pour faire cela on met a jour le cookie avec une date perimée (time() - 1), ou à zéro ou encore sans date. Cela permet d'invalidé le cookie dans l'ordinateur de l'internaute
+
+// on affiche la langue du site.
+echo "<h2>Langue du site : $langue </h2>";
+
+?>
+
+
+<h1>Votre langue</h1>
+
+
+<ul>
+    <li><a href="?langue=fr">français</a></li>
+    <li><a href="?langue=es">espagnol</a></li>
+    <li><a href="?langue=it">italien</a></li>
+    <li><a href="?langue=en">anglais</a></li>
+</ul>
+
+
+?>
